@@ -1,0 +1,9 @@
+.signUp,.loginForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+a{
+    color: #000;
+    text-decoration: none;
+}

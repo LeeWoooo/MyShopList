@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+    <select id="findAll" resultType="com.shop.controller.dto.SignUpRequestDTO">
+        select * from shopmember
+    </select>
+    <select id="idCheck" resultType="java.lang.Integer">
+        select count(mem_id) from shopmember where mem_id = #{mem_id}
+    </select>
+
+    <select id="emailCheck" resultType="java.lang.Integer">
+        select count(mem_email) from shopmember where mem_email = #{mem_email}
+    </select>
+
+    <insert id="memberSave">
+        insert into shopmember values (#{mem_id},#{mem_pwd},#{mem_name},#{mem_birth},#{mem_email},#{mem_phone},#{mem_zipCode},#{mem_address},#{mem_detailAddress})
+    </insert>
+
+    <select id="memberLogin" resultType="java.lang.Integer">
+        select count(mem_id) from shopmember where mem_id = #{mem_id} and mem_pwd = #{mem_pwd}
+    </select>
+</mapper>

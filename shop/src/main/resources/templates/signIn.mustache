@@ -1,0 +1,28 @@
+<!--머스타치 문법을 써서 css와 html head부는 동일하게 사용-->
+<!--현재 페이지는 로그인 페이지로 사용자가 입력한 값들이 유효한 값인지 확인 후 로그인-->
+{{>layout/header}}
+<div class="container">
+    <div class="jumbotron loginForm" align="center">
+        <div></div>
+        <div>
+            <h2>로그인</h2>
+            <form action="signIn.do" method="post" class="signInForm">
+                <div class="form-group"> <label for="mem_id">아이디</label>
+                    <input type="text" class="form-control" id="mem_id" name="mem_id" placeholder="ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="mem_pwd">비밀번호</label>
+                    <input type="password" class="form-control" id="mem_pwd" name="mem_pwd" placeholder="PASSWORD" required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-dark singInBtn" id="signInBtn">로그인</button>
+                </div>
+            </form>
+        </div>
+        <div></div>
+    </div>
+</div>
+{{>layout/jquery}}
+<script src="js/signInValidation.js"></script>
+</body>
+</html>
