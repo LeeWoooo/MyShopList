@@ -10,16 +10,26 @@
     <div class="container" style="margin-bottom: 20px">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <!-- Brand/logo -->
-            <a class="navbar-brand" href="#">나만의 특가</a>
+            <a class="navbar-brand" href="shopList.do">나만의 특가</a>
 
             <!-- Links -->
             <ul class="navbar-nav">
+                {{#mem_id}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="shopList.do">나의 리스트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.do">상품검색</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logOut.do">로그아웃</a>
+                    </li>
+                {{/mem_id}}
+                {{^mem_id}}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">나의 리스트</a>
+                    <a class="nav-link" href="signIn.do">로그인</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">상품검색</a>
-                </li>
+                {{/mem_id}}
             </ul>
         </nav>
     </div>
