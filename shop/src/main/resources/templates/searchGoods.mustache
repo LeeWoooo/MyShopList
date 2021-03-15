@@ -1,0 +1,28 @@
+<!--머스타치 문법을 써서 css와 html head부는 동일하게 사용-->
+<!--현재 페이지는 index페이지로 사용자가 처음으로 접속하면 들어오게 되는 페이지이다.-->
+{{>layout/header}}
+<div class="container">
+    <div class="jumbotron">
+        <div id="search-input">
+            <div></div>
+            <div>
+                <div class="form-group"> <label for="mem_id">상품 검색</label>
+                    <input type="text" class="form-control" id="searchQuery" name="searchQuery" placeholder="상품명을 입력해주세요." required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-dark singInBtn" id="searchBtn">검색하기</button>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="search-goodsBox" id="search-goodsBox">
+            <!--상품이 추가될 공간-->
+        </div>
+    </div>
+</div>
+{{>layout/jquery}}
+<script src="js/search.js"></script>
+</body>
+</html>

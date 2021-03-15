@@ -1,9 +1,22 @@
-.signUp,.loginForm{
+.signUp,.loginForm, .search-goodsBox, #search-input{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.none {
+    display: none;
+}
+
+.search-goodsBox {
+    grid-column-gap: 10px;
+}
+
+.search-card {
+    margin: 10px 0 10px 0;
 }
 
 a{
     color: #000;
     text-decoration: none;
 }
+
