@@ -43,11 +43,14 @@ public class ShopListController {
     //사용자가 나만의 리스트에 저장을 했을 때 저장 처리
     @PostMapping("api/saveItem")
     @ResponseBody
-    public String saveItem(@RequestBody MyItemDTO itemDTO){
+    public String saveItem(@RequestBody MyItemDTO myItemDTO){
         String result ="1";
-        System.out.println(itemDTO.getMem_id());
-        System.out.println(itemDTO.getMyPrice());
-        System.out.println(itemDTO.getImage());
+        System.out.println(myItemDTO.getMem_id());
+        System.out.println(myItemDTO.getTitle());
+        System.out.println(myItemDTO.getLink());
+        System.out.println(myItemDTO.getImage());
+        System.out.println(myItemDTO.getLprice());
+        System.out.println(myItemDTO.getMyPrice());
         return result;
     }
 

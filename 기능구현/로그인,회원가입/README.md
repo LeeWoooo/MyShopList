@@ -247,3 +247,54 @@ controller에게 요청을 하여 로그인 처리를 진행한다. 여기도 �
     ```
 
 <br>
+
+
+---
+
+<Br>
+
+## 페이지 모듈화 중 Header 동적인 태그
+
+사용자가 로그인한 상태로 서비스를 이용할 때 header의 nav를 동적으로 표현한다. session이 존재해서 Controller에서 Model에 mem_id값이 실려서 넘어올 때와 아닐 때를 구분하여 nav를 설정
+
+* html
+
+    ```html
+    <ul class="navbar-nav">
+                {{#mem_id}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="shopList.do">{{mem_id}}님의 리스트</a>
+                        <!--현재 session에 저장되어있는 아이디값 숨겨놓기-->
+                        <input type="hidden" value="{{mem_id}}" id="session-mem_id">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.do">상품검색</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logOut.do">로그아웃</a>
+                    </li>
+                {{/mem_id}}
+                {{^mem_id}}
+                <li class="nav-item">
+                    <a class="nav-link" href="signIn.do">로그인</a>
+                </li>
+                {{/mem_id}}
+            </ul>
+    ```
+
+<br>
+
+mustache 문법을 사용한 조건문 형식을 사용하였으며 mem_id의 값이 있을 때 "{{mem_id}}님의 리스트","상품검색","로그아웃"을 보여준다. <br>
+
+중간에 session에 저장된 값을 다른 html에서 사용하기 위해 hidden으로 값을 저장했다.
+
+* html 
+
+    ```html
+    <input type="hidden" value="{{mem_id}}" id="session-mem_id">
+    ```
+
+<BR
+
+넘어오는 mem_id가 없다면 로그인만 표현된다.
+
