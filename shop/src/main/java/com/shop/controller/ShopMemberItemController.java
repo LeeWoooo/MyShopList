@@ -1,6 +1,6 @@
 package com.shop.controller;
 
-import com.google.gson.Gson;
+
 import com.shop.controller.dto.ItemDTO;
 import com.shop.controller.dto.MyItemDTO;
 import com.shop.controller.dto.MyItemResponseDTO;
@@ -30,7 +30,7 @@ public class ShopMemberItemController {
     //사용자가 로그인 했을 경우 사용자가 등록한 최저가 리스트를 보여준다.
     @PostMapping("/loadList.do")
     @ResponseBody
-    public String loadList(HttpSession httpSession , Model model, @RequestBody PageNumberDTO pageNumberDTO){
+    public MyItemResponseDTO loadList(HttpSession httpSession , Model model, @RequestBody PageNumberDTO pageNumberDTO){
         //여기서는 서비스로 pageNumber와 세션 아이디를 넘겨서 페이징 처리를 한다.
         String mem_id = (String)httpSession.getAttribute("mem_id");
         //사용자 아이디로 저장된 레코드 수 불러오기
@@ -45,8 +45,8 @@ public class ShopMemberItemController {
         //세션에 저장되어 있는 id값 넘겨주기
         model.addAttribute("mem_id",mem_id);
 
-        //ajax통신으로 paging처리하기위해 JSON으로 변환 후 넘겨준다.
-        return new Gson().toJson(new MyItemResponseDTO(pagiNation.getTotalPage(),myItemList));
+        //ajax통신으로 paging처리하기위해 JSON으로 넘겨준다.
+        return new MyItemResponseDTO(pagiNation.getTotalPage(),myItemList);
     }//shopList
 
     //사용자가 상품 검색을 눌렀을 경우
