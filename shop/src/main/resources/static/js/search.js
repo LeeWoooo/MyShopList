@@ -1,7 +1,4 @@
-//상품 가격을 3자리 수마다 ,를 부여
-let priceFormat = function (price){
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+const SUCCESS = 1;
 
 let search = {
     init : function (){
@@ -39,16 +36,16 @@ let search = {
                                             <div class="card">
                                                 <img class="card-img-top" src="${item.image}" alt="Card image" style="width:300px">
                                                 <div class="card-body">
-                                                    <h4 class="card-title">${priceFormat(item.lprice)}</h4>
+                                                    <h4 class="card-title">${search.priceFormat(item.lprice)}</h4>
                                                     <p class="card-text">${item.title}</p>
                                                     <a href="${item.link}" class="btn btn-dark" target="_blank">구매링크</a>
-                                                    <button class="btn btn-dark" id="myPrice-inputBtn-${index}" onclick="addMyPrice(${index})">최저가등록하기</button>
+                                                    <button class="btn btn-dark" id="myPrice-inputBtn-${index}" onclick="search.addMyPrice(${index})">최저가등록하기</button>
                                                     <div id="myPrice-inputForm-${index}" class="none">
                                                         <div>
                                                             <input type="text" id="myPrice-${index}" name="myPrice" class="form-control" placeholder="최저가를 입력해주세요." style="margin: 10px 0 10px 0">
                                                         </div>
-                                                        <button class="btn btn-dark" id="myPrice-saveBtn-${index}" onclick='addItem(${JSON.stringify(item)},${index})'>리스트에 등록</button>
-                                                        <button class="btn btn-dark" id="myPrice-cancelBtn-${index}" onclick='cancelAdd(${index})'>취소</button>
+                                                        <button class="btn btn-dark" id="myPrice-saveBtn-${index}" onclick='search.addItem(${JSON.stringify(item)},${index})'>리스트에 등록</button>
+                                                        <button class="btn btn-dark" id="myPrice-cancelBtn-${index}" onclick='search.cancelAdd(${index})'>취소</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,60 +55,64 @@ let search = {
         }).fail(function (error){
             alert(JSON.stringify(error));
         })//end ajax
+    },
+    priceFormat : function (price) {
+        //상품 가격을 3자리 수마다 ,를 부여
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    addMyPrice : function (index){
+        //최저가 입력하는 버튼 가리기
+        $(`#myPrice-inputBtn-${index}`).addClass('none');
+        //최저가 입력하는 form보여주기
+        $(`#myPrice-inputForm-${index}`).removeClass('none');
+    },
+    cancelAdd : function (index) {
+        //취소를 누르면 다시 최저가 입력하는 form 지우기
+        $(`#myPrice-inputForm-${index}`).addClass('none');
+
+        //최저가 입력하는 버튼 보여주기
+        $(`#myPrice-inputBtn-${index}`).removeClass('none');
+    }
+    //상품 저장을 누르면 json객체를 받아 내가 입력한 최저가를 추가하여 변수에 저장하는 함수
+    ,addItem : function (item,index){
+        //사용자가 입력한 최저가 가격을 변수에 선언
+        let myPrice = $(`#myPrice-${index}`).val();
+
+        //만약 입력하지 않았다거나 숫자가 아닌 값을 입력했을 경우 return
+        if(myPrice == '' || isNaN(myPrice)){
+            alert('원하시는 최저가 가격을 숫자로 입력해주세요.');
+            $(`#myPrice-${index}`).val('');
+            $(`#myPrice-${index}`).focus();
+            return;
+        }//end if
+
+        //유효한 값이라면 상품 정보를 변수에 저장을 하고
+        let saveItem = item;
+        //객체에 myPrice 필드를 추가한다.
+        saveItem.myPrice = parseInt(myPrice);
+
+        //세선에 저장되어있는 id를 header에 숨겨놨다 이것을 가져다가 사용하자
+        //setter을 이용하여 값을 넣고싶지 않았기 떄문
+        let mem_id = $('#session-mem_id').val();
+        saveItem.mem_id = mem_id;
+
+        //이 후 ajax통신을 통해 상품 저장
+        $.ajax({
+            url:'/api/saveItem',
+            type: 'post',
+            data: JSON.stringify(saveItem),
+            dataType:'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function (response){
+            if(response == SUCCESS){
+                alert('상품등록이 완료되었습니다.');
+                window.location.href='shopList.do';
+            }//end if
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        })
     }
 }
 
-let addMyPrice = function (index){
-    //최저가 입력하는 버튼 가리기
-    $(`#myPrice-inputBtn-${index}`).addClass('none');
-    //최저가 입력하는 form보여주기
-    $(`#myPrice-inputForm-${index}`).removeClass('none');
-}
-
-let cancelAdd = function (index){
-    //취소를 누르면 다시 최저가 입력하는 form 지우기
-    $(`#myPrice-inputForm-${index}`).addClass('none');
-
-    //최저가 입력하는 버튼 보여주기
-    $(`#myPrice-inputBtn-${index}`).removeClass('none');
-}
-
-//상품 저장을 누르면 json객체를 받아 내가 입력한 최저가를 추가하여 변수에 저장하는 함수
-let addItem = function (item,index){
-
-    //사용자가 입력한 최저가 가격을 변수에 선언
-    let myPrice = $(`#myPrice-${index}`).val();
-
-    //만약 입력하지 않았다거나 숫자가 아닌 값을 입력했을 경우 return
-    if(myPrice == '' || isNaN(myPrice)){
-        alert('원하시는 최저가 가격을 숫자로 입력해주세요.');
-        $(`#myPrice-${index}`).val('');
-        $(`#myPrice-${index}`).focus();
-        return;
-    }//end if
-
-    //유효한 값이라면 상품 정보를 변수에 저장을 하고
-    let saveItem = item;
-    //객체에 myPrice 필드를 추가한다.
-    saveItem.myPrice = parseInt(myPrice);
-
-    //세선에 저장되어있는 id를 header에 숨겨놨다 이것을 가져다가 사용하자
-    //setter을 이용하여 값을 넣고싶지 않았기 떄문
-    let mem_id = $('#session-mem_id').val();
-    saveItem.mem_id = mem_id;
-
-    //이 후 ajax통신을 통해 상품 저장
-    $.ajax({
-        url:'/api/saveItem',
-        type: 'post',
-        data: JSON.stringify(saveItem),
-        dataType:'json',
-        contentType:'application/json; charset=utf-8'
-    }).done(function (response){
-        alert(response);
-    }).fail(function (error){
-        alert(JSON.stringify(error));
-    })
-}
 
 search.init();

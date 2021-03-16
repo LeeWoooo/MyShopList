@@ -1,4 +1,4 @@
-.signUp,.loginForm, .search-goodsBox, #search-input{
+.signUp,.loginForm, .search-goodsBox, #search-input, #load-myItem{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -7,16 +7,25 @@
     display: none;
 }
 
-.search-goodsBox {
+.search-goodsBox ,.load-myItem{
     grid-column-gap: 10px;
 }
 
-.search-card {
+.search-card, .load-card {
     margin: 10px 0 10px 0;
 }
 
 a{
     color: #000;
     text-decoration: none;
+}
+
+#pageNation{
+    display: flex;
+    justify-content: center;
+}
+
+#pageUl li{
+    cursor: pointer;
 }
 

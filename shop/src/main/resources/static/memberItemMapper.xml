@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberItemMapper">
+    <insert id="save">
+        insert into SHOPUSERITEM VALUES (SEQ_SHOPUSERITEM.NEXTVAL,#{mem_id},#{title},#{link},#{image},#{lprice},#{myPrice})
+    </insert>
+
+    <select id="countRecord" resultType="java.lang.Integer">
+        select count(item_no) from SHOPUSERITEM where mem_id = #{mem_id}
+    </select>
+
+    <select id="findAllPaging" resultType="com.shop.controller.dto.MyItemDTO">
+        <![CDATA[
+        select ITEM_NO, MEM_ID, TITLE, LINK, IMAGE, LPRICE, MYPRICE, SEQ
+        from (SELECT ITEM_NO, MEM_ID, TITLE, LINK, IMAGE, LPRICE, MYPRICE, ROW_NUMBER()OVER(ORDER BY ITEM_NO DESC) SEQ
+                FROM SHOPUSERITEM
+                WHERE ITEM_NO > 0 AND MEM_ID = #{mem_id})
+        where SEQ > #{startSearch} AND SEQ < #{endSearch}
+        ]]>
+    </select>
+</mapper>

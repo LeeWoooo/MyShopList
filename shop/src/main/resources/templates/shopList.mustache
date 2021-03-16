@@ -2,7 +2,17 @@
 <!--현재 페이지는 index페이지로 사용자가 처음으로 접속하면 들어오게 되는 페이지이다.-->
 {{>layout/header}}
 
-    사용자가 로그인을 했을 때 세션에 저장된 아이디로 DB를 검색하여 리스트를 보여준다.
-
+<div class="container">
+    <div class="load-myItem" id="load-myItem">
+        <!--상품이 추가될 공간-->
+    </div>
+    <div id="pageNation">
+        <ul id="pageUl" class="pagination">
+            <!--페이지 번호가 추가 될 공강-->
+        </ul>
+    </div>
+</div>
+{{>layout/jquery}}
+<script src="js/loadList.js"></script>
 </body>
 </html>
