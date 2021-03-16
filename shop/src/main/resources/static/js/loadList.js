@@ -25,7 +25,8 @@ let loadList = {
                                 <div class="card">
                                     <img class="card-img-top" src="${item.image}" alt="Card image" style="width:300px">
                                     <div class="card-body">
-                                        <h6 class="card-title">상품가격: ${loadList.priceFormat(item.lprice)} 내 최저가: ${loadList.priceFormat(item.myPrice)}</h6>
+                                        <h6 class="card-title">상품가격: ${loadList.priceFormat(item.lprice)}</h6>
+                                        <h6 class="card-title" style="color: #ff0000">내 최저가: ${loadList.priceFormat(item.myPrice)}</h6>
                                         <p class="card-text">${item.title}</p>
                                         <a href="${item.link}" class="btn btn-dark" target="_blank">구매링크</a>
                                         <button class="btn btn-danger ${item.lprice <= item.myPrice ? '' : 'none'}">최저가</button>
@@ -67,7 +68,6 @@ let loadList = {
             type: 'delete',
             dataType: 'json'
         }).done(function (response) {
-            alert(response);
             if(response == loadList.SUCCESS){
                 alert('삭제가 완료되었습니다.');
                 window.location.href='shopList.do';

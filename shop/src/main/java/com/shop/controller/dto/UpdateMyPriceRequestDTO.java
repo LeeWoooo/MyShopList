@@ -7,5 +7,5 @@ import lombok.Getter;
 public class UpdateMyPriceRequestDTO {
 
     private int item_no;
-    private int lprice;
+    private int myPrice;
 }

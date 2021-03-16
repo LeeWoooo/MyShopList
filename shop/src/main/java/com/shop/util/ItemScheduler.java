@@ -4,8 +4,6 @@ import com.shop.controller.dto.ItemDTO;
 import com.shop.controller.dto.MyItemDTO;
 import com.shop.controller.dto.UpdateLpriceRequestDTO;
 import com.shop.dao.ShopMemberItemDAO;
-import com.shop.service.ShopMemberItemService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -20,16 +18,14 @@ public class ItemScheduler {
     private final NaverShoppingSearch naverShoppingSearch;
     private final ShopMemberItemDAO shopMemberItemDAO;
 
+    private int updateLpirce;
+    private int item_no;
 
-    @Scheduled(cron = "0 29 16 * * *") //매월 매일 1시마다 update
+    @Scheduled(cron = "0 0 1 * * *") //매월 매일 1시마다 update
     public void updateLprice() throws InterruptedException{
         System.out.println("상품 가격 업데이트 시작");
 
         List<MyItemDTO> MyItemList = shopMemberItemDAO.finaAll();
-
-        //반복문에서 변수선언하지 않기 위해
-        int updateLpirce = 0;
-        int item_no = 0;
 
         //반복문을 돌면서 update진행
         for(MyItemDTO myItemDTO : MyItemList){
