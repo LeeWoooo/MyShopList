@@ -2,13 +2,13 @@ package com.shop.service;
 
 import com.shop.controller.dto.ItemDTO;
 import com.shop.controller.dto.MyItemDTO;
+import com.shop.controller.dto.UpdateMyPriceRequestDTO;
 import com.shop.dao.ShopMemberItemDAO;
 import com.shop.util.NaverShoppingSearch;
 import com.shop.util.PagiNation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +40,12 @@ public class ShopMemberItemService {
         return String.valueOf(result);
     }//saveItem
 
+    //사용자의 id를 받아 등록된 상품의 갯수 알아오기
+    public int countRecord(String mem_id){
+        return shopMemberItemDAO.countRecord(mem_id);
+    }//countRecord
+
+    //아이디와 페이징 객체를 받아 DB를 조회 후 List 반환
     public List<MyItemDTO> findAllPaging(String mem_id,PagiNation pagiNation){
         //사용자 아이디로 등록된 상품 갯수 알아오기
         int count = countRecord(mem_id);
@@ -53,10 +59,24 @@ public class ShopMemberItemService {
         return shopMemberItemDAO.findAllPaging(pageMap);
     }
     
-    //사용자의 id를 받아 등록된 상품의 갯수 알아오기
-    public int countRecord(String mem_id){
-        return shopMemberItemDAO.countRecord(mem_id);
-    }//countRecord
-    
+
+    //등록되어 있는 상품 삭제
+    public String deleteItem(int item_no) {
+        int result = shopMemberItemDAO.delete(item_no);
+        if(result == SUCCESS){
+            shopMemberItemDAO.commit();
+        }//end if
+        return String.valueOf(result);
+    }
+
+    //등록되어 있는 최저가 수정
+    public String updateItem(UpdateMyPriceRequestDTO updateMyPriceRequestDTO) {
+        int result = shopMemberItemDAO.update(updateMyPriceRequestDTO);
+        if(result == SUCCESS){
+            shopMemberItemDAO.commit();
+        }//end if
+        return String.valueOf(result);
+    }
+
 
 }

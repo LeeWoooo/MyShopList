@@ -1,3 +1,10 @@
+/*구글 폰트 적용*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
 .signUp,.loginForm, .search-goodsBox, #search-input, #load-myItem{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

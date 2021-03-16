@@ -10,8 +10,12 @@
     <div class="container" style="margin-bottom: 20px">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <!-- Brand/logo -->
+            {{^mem_id}}
+                <a class="navbar-brand" href="/">나만의 특가</a>
+            {{/mem_id}}
+            {{#mem_id}}
             <a class="navbar-brand" href="shopList.do">나만의 특가</a>
-
+            {{/mem_id}}
             <!-- Links -->
             <ul class="navbar-nav">
                 {{#mem_id}}

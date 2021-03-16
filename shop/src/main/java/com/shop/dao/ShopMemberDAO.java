@@ -35,6 +35,7 @@ public class ShopMemberDAO {
         return sqlSession.selectOne("memberMapper.memberLogin",signInRequestDTO);
     }
 
+    //커밋
     public void commit(){
         sqlSession.commit();
     }

@@ -1,10 +1,7 @@
 package com.shop.controller;
 
 
-import com.shop.controller.dto.ItemDTO;
-import com.shop.controller.dto.MyItemDTO;
-import com.shop.controller.dto.MyItemResponseDTO;
-import com.shop.controller.dto.PageNumberDTO;
+import com.shop.controller.dto.*;
 import com.shop.service.ShopMemberItemService;
 import com.shop.util.PagiNation;
 import lombok.RequiredArgsConstructor;
@@ -15,19 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+//회원이 로그인 후 상품을 등록하고 검색하는 것을 처리하는 컨트롤러
 @RequiredArgsConstructor
 @Controller
 public class ShopMemberItemController {
 
     private final ShopMemberItemService shopMemberItemService;
 
+    //로그인 시 상품리스트 페이지로 이동
     @GetMapping("/shopList.do")
     public String shopList(HttpSession httpSession,Model model){
         model.addAttribute("mem_id",httpSession.getAttribute("mem_id"));
         return "shopList";
     }
 
-    //사용자가 로그인 했을 경우 사용자가 등록한 최저가 리스트를 보여준다.
+    //페이징 처리를 하여 사용자에게 등록한 상품 리스트를 보여준다.
     @PostMapping("/loadList.do")
     @ResponseBody
     public MyItemResponseDTO loadList(HttpSession httpSession , Model model, @RequestBody PageNumberDTO pageNumberDTO){
@@ -71,4 +70,18 @@ public class ShopMemberItemController {
         return shopMemberItemService.saveItem(myItemDTO);
     }
 
+    //상품번호와 수정 가격을 받아서 등록한 최저가 수정
+    @PutMapping("/updateMyPrice.do")
+    @ResponseBody
+    public String updateItem(@RequestBody UpdateMyPriceRequestDTO updateMyPriceRequestDTO){
+        return shopMemberItemService.updateItem(updateMyPriceRequestDTO);
+    }
+
+    //상품번호를 받아서 삭제
+    //DeleteMapping사용
+    @DeleteMapping("/delete.do/{item_no}")
+    @ResponseBody
+    public String deleteItem(@PathVariable int item_no){
+        return shopMemberItemService.deleteItem(item_no);
+    }
 }

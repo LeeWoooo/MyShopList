@@ -20,4 +20,20 @@
         where SEQ > #{startSearch} AND SEQ < #{endSearch}
         ]]>
     </select>
+
+    <select id="findAll" resultType="com.shop.controller.dto.MyItemDTO">
+        select * from SHOPUSERITEM
+    </select>
+
+    <update id="update">
+        update SHOPUSERITEM set myPrice = #{myPrice} where item_no = #{item_no}
+    </update>
+
+    <delete id="delete">
+        delete from SHOPUSERITEM where item_no = #{item_no}
+    </delete>
+
+    <update id="updateAuto">
+        update SHOPUSERITEM set lprice = #{lprice} where item_no = #{item_no}
+    </update>
 </mapper>

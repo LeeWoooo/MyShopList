@@ -5,11 +5,11 @@ const SIGNUPSUCCESS = 1;
 let validationArr = new Array(2).fill(false);
 
 //정규식
-let id = /^[a-z0-9][a-z0-9_\-]{4,11}$/;
-let pwd = /^[A-Za-z0-9]{6,12}$/;
-let name = /^[가-힣]{2,5}$/;
-let email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-let phone = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+const id = /^[a-z0-9][a-z0-9_\-]{4,11}$/;
+const pwd = /^[A-Za-z0-9]{6,12}$/;
+const name = /^[가-힣]{2,5}$/;
+const email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+const phone = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 
 //validation
 let signUpValidation = {
@@ -46,7 +46,7 @@ let signUpValidation = {
         //유효성 검사에 통과했다면            
         }else{
             //사용자의 입력한 값을 얻어와서
-            let data = {
+            const data = {
                 mem_id:$('#mem_id').val()
             };
             //ajax통신을 하여 중복값을 확인하고
@@ -180,7 +180,7 @@ let signUpSubmit = {
     },
     signUp : function (){
 
-        let data = {
+        const data = {
             mem_id : $('#mem_id').val(),
             mem_pwd : $('#mem_pwd').val(),
             mem_name : $('#mem_name').val(),

@@ -2,8 +2,8 @@
 const SIGNINSUCCESS = 1;
 
 //정규식
-let id = /^[a-z0-9][a-z0-9_\-]{4,11}$/;
-let pwd = /^[A-Za-z0-9]{6,12}$/;
+const id = /^[a-z0-9][a-z0-9_\-]{4,11}$/;
+const pwd = /^[A-Za-z0-9]{6,12}$/;
 
 //로그인 버튼을 눌렀을시 유효성 검사 및 로그인 처리
 let signInValidation = {

@@ -2,6 +2,13 @@
 <!--현재 페이지는 index페이지로 사용자가 처음으로 접속하면 들어오게 되는 페이지이다.-->
 {{>layout/header}}
 
+<div class="container" align="center">
+    <div class="jumbotron">
+        <h1>최저가 리스트:)</h1>
+        <p>등록한 상품의 가격이 원하는 최저가 가격보다 낮아지면 알려드려요!</p>
+    </div>
+</div>
+
 <div class="container">
     <div class="load-myItem" id="load-myItem">
         <!--상품이 추가될 공간-->
@@ -13,6 +20,7 @@
     </div>
 </div>
 {{>layout/jquery}}
+<script src="js/sessionValidation.js"></script>
 <script src="js/loadList.js"></script>
 </body>
 </html>

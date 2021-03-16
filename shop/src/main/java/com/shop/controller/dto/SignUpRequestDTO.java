@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 public class SignUpRequestDTO {
 
+    //회원가입에 필요한 DTO
     private String mem_id;
     private String mem_pwd;
     private String mem_name;

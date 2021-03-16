@@ -1,6 +1,8 @@
 package com.shop.dao;
 
 import com.shop.controller.dto.MyItemDTO;
+import com.shop.controller.dto.UpdateLpriceRequestDTO;
+import com.shop.controller.dto.UpdateMyPriceRequestDTO;
 import com.shop.db.SqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -31,9 +33,30 @@ public class ShopMemberItemDAO {
     public List<MyItemDTO> findAllPaging(Map<String,Object> pageMap){
         return sqlSession.selectList("memberItemMapper.findAllPaging",pageMap);
     }
+    
+    //상품번호를 받아서 삭제
+    public int delete(int item_no) {
+        return sqlSession.delete("memberItemMapper.delete",item_no);
+    }
 
     //openSession을 할 때 auto commit를 하지 않았기에 선언
     public void commit(){
         sqlSession.commit();
+    }
+
+    //상품 최저가 및 상품 번호를 받아서 최저가 업데이트
+    public int update(UpdateMyPriceRequestDTO updateMyPriceRequestDTO) {
+        return sqlSession.update("memberItemMapper.update", updateMyPriceRequestDTO);
+    }
+    
+    //스케줄링을 위한 전체 등록된 아이템 찾기
+    public List<MyItemDTO> finaAll(){
+        return sqlSession.selectList("memberItemMapper.findAll");
+    }
+
+    //스케줄링 update 오토
+    public void updateLprice(UpdateLpriceRequestDTO UpdateLpriceRequestDTO) {
+        sqlSession.update("memberItemMapper.updateAuto",UpdateLpriceRequestDTO);
+        commit();
     }
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 @Getter
 public class MyItemDTO {
 
+    private int item_no;
     private String mem_id;
     private String title;
     private String link;

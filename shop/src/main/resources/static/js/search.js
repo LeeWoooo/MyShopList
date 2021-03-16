@@ -10,7 +10,7 @@ let search = {
     },
     searchItem : function (){
         //사용자가 입력한 상품명을 받고
-        let query = $('#searchQuery').val();
+        const query = $('#searchQuery').val();
 
         //사용자가 상품명을 입력하지 않았을 경우 알림
         if(query == ""){
@@ -76,7 +76,7 @@ let search = {
     //상품 저장을 누르면 json객체를 받아 내가 입력한 최저가를 추가하여 변수에 저장하는 함수
     ,addItem : function (item,index){
         //사용자가 입력한 최저가 가격을 변수에 선언
-        let myPrice = $(`#myPrice-${index}`).val();
+        const myPrice = $(`#myPrice-${index}`).val();
 
         //만약 입력하지 않았다거나 숫자가 아닌 값을 입력했을 경우 return
         if(myPrice == '' || isNaN(myPrice)){
@@ -87,13 +87,13 @@ let search = {
         }//end if
 
         //유효한 값이라면 상품 정보를 변수에 저장을 하고
-        let saveItem = item;
+        const saveItem = item;
         //객체에 myPrice 필드를 추가한다.
         saveItem.myPrice = parseInt(myPrice);
 
         //세선에 저장되어있는 id를 header에 숨겨놨다 이것을 가져다가 사용하자
         //setter을 이용하여 값을 넣고싶지 않았기 떄문
-        let mem_id = $('#session-mem_id').val();
+        const mem_id = $('#session-mem_id').val();
         saveItem.mem_id = mem_id;
 
         //이 후 ajax통신을 통해 상품 저장
